@@ -122,6 +122,17 @@ class Superwar {
     // Check for fight
     isFight = () => {
         // Type your code here
+        var flag = false;
+        for (let i = 0; i < this.players.length; i++) {
+            if (this.players[i].strength > 0) {
+                flag = true;
+            }
+            else { flag = false; }
+        }
+        if (flag == true)
+            return 'clash';
+        else
+            return 'peace';
 
         // return  'clash' or 'peace';
     }
@@ -140,8 +151,17 @@ class Superwar {
     calculateScore = () => {
         // Calculate and return the total score of teams
         // Type your code here
-
-        return score;
+        calculateScore = () => {
+            let score = this.players.reduce((score, player) => {
+                score[player.type] += player.wins;
+                return score;
+            },
+                {
+                    'hero': 0,
+                    'villain': 0
+                });
+            return score;
+        }
     }
 
     // Check whether there is a win
@@ -149,15 +169,27 @@ class Superwar {
         // Find the winner if exists return type hero or villain
         // If winner dosen't exists then return endure
         // Type your code here
-
-      return result;
+        var result;
+        var a = parseInt(this.players[0].strength);
+        var b = parseInt(this.players[1].strength);
+        if (a > b)
+            result = this.players[0].type;
+        else if (b > a)
+            result = this.players[1].type
+        else
+            result = "endure";
+        return result;
     }
 
     // Find total strength of a team
     totalStrength = (type) => {
         // Calculate and return the total strength of the team
         // Type your code here
-
+        var strength = 0;
+        for (let i = 0; i < this.players.length; i++) {
+            if (this.players[i].type == type) { strength += parseInt(this.players[i].strength); }
+        }
+        console.log("straee", strength);
         return strength;
     }
 
